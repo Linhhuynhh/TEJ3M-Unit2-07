@@ -7,8 +7,8 @@
 # include <Servo.h>
 
 
-const int TRIG_PIN = 3;  
-const int ECHO_PIN = 2; 
+const int TRIG_PIN = 8;  
+const int ECHO_PIN = 9; 
 
 Servo servoNumber1;
   
