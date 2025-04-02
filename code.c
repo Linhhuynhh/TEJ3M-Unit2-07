@@ -7,22 +7,23 @@
 # include <Servo.h>
 
 
-const int TRIG_PIN = 8;  
-const int ECHO_PIN = 9; 
-const int DISTNACE_TO_START =  20;
-const int CONVERSION_METRIC = 0.0343;
+const int TRIG_PIN = 9;  
+const int ECHO_PIN = 8;
+const float SPEED_OF_LIGHT = 0.0343;
+const int DISTANCE_TWIST = 50;
 
-const float DISTANCE;
-const float DURATION;
+float DURATION;
+float DISTANCE;
 
 Servo servoNumber1;
 
 void setup() {
+    servoNumber1.attach(10);
+    servoNumber1.write(0);
     pinMode(TRIG_PIN, OUTPUT);
     pinMode(ECHO_PIN, INPUT);
     Serial.begin(9600);
-    servoNumber1.attach(10);
-    servoNumber1.write(0);
+
 }
 
 void loop() {
@@ -34,15 +35,15 @@ void loop() {
     digitalWrite(TRIG_PIN, LOW);
 
     DURATION = pulseIn(ECHO_PIN, HIGH);
-    DISTANCE = (DURATION * CONVERSION_METRIC) / 2;
-    Serial.print("Distance: ");
+    DISTANCE = (DURATION * SPEED_OF_LIGHT) / 2;
+    Serial.print(DISTANCE);
     Serial.println(DISTANCE);
-    delay(100);
   
-    if (DISTANCE < DISTANCE_TO_START) {
-      servoNumber1.write(0);
-      delay(1000);
+    if (DISTANCE < DISTANCE_TWIST) 
+    {
       servoNumber1.write(90);
       delay(1000);
-	    }
+      servoNumber1.write(0);
+      delay(1000);
+    }
 }
