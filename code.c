@@ -12,8 +12,8 @@ const int ECHO_PIN = 8;
 const float SPEED_OF_LIGHT = 0.0343;
 const int DISTANCE_TWIST = 50;
 
-float DURATION;
-float DISTANCE;
+float duration;
+float distance;
 
 Servo servoNumber1;
 
@@ -34,12 +34,12 @@ void loop() {
     delayMicroseconds(10);
     digitalWrite(TRIG_PIN, LOW);
 
-    DURATION = pulseIn(ECHO_PIN, HIGH);
-    DISTANCE = (DURATION * SPEED_OF_LIGHT) / 2;
-    Serial.print(DISTANCE);
-    Serial.println(DISTANCE);
+    duration = pulseIn(ECHO_PIN, HIGH);
+    distance = (duration * SPEED_OF_LIGHT) / 2;
+    Serial.print(distance);
+    Serial.println(distance);
   
-    if (DISTANCE < DISTANCE_TWIST) 
+    if (distance < DISTANCE_TWIST) 
     {
       servoNumber1.write(90);
       delay(1000);
