@@ -1,49 +1,57 @@
-/* 
- * Created by Linh Huynh
- * Created on April 2025
- * 
+/*
+created by Linh Huynh 
+created on Apr 1
+
+servo turns depending on distance from sonar
 */
 
-# include <Servo.h>
-
-
-const int TRIG_PIN = 9;  
-const int ECHO_PIN = 8;
-const float SPEED_OF_LIGHT = 0.0343;
-const int DISTANCE_TWIST = 50;
-
-float duration;
-float distance;
+#include <Servo.h>
 
 Servo servoNumber1;
 
-void setup() {
-    servoNumber1.attach(10);
-    servoNumber1.write(0);
-    pinMode(TRIG_PIN, OUTPUT);
-    pinMode(ECHO_PIN, INPUT);
-    Serial.begin(9600);
+//constants
+const int TRIG_PIN = 3;  
+const int ECHO_PIN = 2; 
+const float SPEED_OF_LIGHT = 0.0343;
 
-}
+//variables
+float duration;
+float distance;  
 
-void loop() {
-    servoNumber1.write(0);
-    digitalWrite(TRIG_PIN, LOW);
-    delayMicroseconds(2);
-    digitalWrite(TRIG_PIN, HIGH);
-    delayMicroseconds(10);
-    digitalWrite(TRIG_PIN, LOW);
+//setup
+void setup() {  
+   // setup servo pins
+   servoNumber1.attach(4);
+   servoNumber1.write(0);
+  //pins for sonar
+   pinMode(TRIG_PIN, OUTPUT);  
+   pinMode(ECHO_PIN, INPUT); 
+   Serial.begin(9600);  
+}  
 
-    duration = pulseIn(ECHO_PIN, HIGH);
-    distance = (duration * SPEED_OF_LIGHT) / 2;
-    Serial.print(distance);
-    Serial.println(distance);
+
+//loop
+void loop() {  
+  //clears the trig pin
+  digitalWrite(TRIG_PIN, LOW);  
+  delayMicroseconds(2);  
+
+  //sets trig pin on high fpr 10 micro seconds
+  digitalWrite(TRIG_PIN, HIGH);  
+  delayMicroseconds(10);  
+  digitalWrite(TRIG_PIN, LOW);  
+
+  //reads the echo pin, returns the sound wave travel time in microseconds
+  duration = pulseIn(ECHO_PIN, HIGH);  
+
+  distance = duration*SPEED_OF_LIGHT/2;
+  Serial.print(distance);
   
-    if (distance < DISTANCE_TWIST) 
-    {
-      servoNumber1.write(90);
-      delay(1000);
-      servoNumber1.write(0);
-      delay(1000);
-    }
+  if (distance < 50){
+    servoNumber1.write(90);
+    delay(500);
+    servoNumber1.write(0);
+    delay(500);
+  }
+
 }
