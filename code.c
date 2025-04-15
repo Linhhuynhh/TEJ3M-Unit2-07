@@ -10,8 +10,8 @@ servo turns depending on distance from sonar
 Servo servoNumber1;
 
 //constants
-const int TRIG_PIN = 3;  
-const int ECHO_PIN = 2; 
+const int TRIG_PIN = 9;  
+const int ECHO_PIN = 8; 
 const float SPEED_OF_LIGHT = 0.0343;
 
 //variables
@@ -21,7 +21,7 @@ float distance;
 //setup
 void setup() {  
    // setup servo pins
-   servoNumber1.attach(4);
+   servoNumber1.attach(10);
    servoNumber1.write(0);
   //pins for sonar
    pinMode(TRIG_PIN, OUTPUT);  
